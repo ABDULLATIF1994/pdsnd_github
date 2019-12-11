@@ -280,5 +280,7 @@ def main():
             break
 
 
+# The main program execution starts here
+
 if __name__ == "__main__":
 	main()
