@@ -8,11 +8,26 @@ Bike Share
 
 ### Description
 
-Describe what your project is about and what it does
+This project read city CSV files and logs bikeshare data.
 
 ### Files used
-Include the files used
+
+The city files used are:
+
+-	chicago.csv
+
+-	new_york_city.csv
+
+-	washington.csv
+
+Python source file used:
+
+-	bikeshare.py
 
 ### Credits
-It's important to give proper credit. Add links to any repo that inspired you or blogposts you consulted.
 
+This repository is forked from:
+
+-	https://github.com/udacity/pdsnd_github
+
+No additional blogs were consulted
