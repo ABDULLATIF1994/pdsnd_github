@@ -2,7 +2,9 @@ import time
 import pandas as pd
 import numpy as np
 import datetime
+
 pd.set_option('display.max_columns', 500)
+
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
@@ -16,6 +18,8 @@ def max_dict(d):
             res = k
     return res
 
+
+
 def get_filters():
     """
     Asks user to specify a city, month, and day to analyze.
@@ -25,38 +29,45 @@ def get_filters():
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
     """
+    
     print('Hello! Let\'s explore some US bikeshare data!')
-    # get user input for city (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs
+    
+    # get user input for city name (chicago, new york city, washington). HINT: Use a while loop to handle invalid inputs.
     valid_cities = ['chicago', 'new york city', 'washington']
     city = ''
+    
     while city not in valid_cities:
         city = input('Choose a city from chicago, new york city and washington: ').lower()
-  
 
     # get user input for month (all, january, february, ... , june)
     valid_months = ['all', 'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
     month = ''
+    
     while month not in valid_months:
         month = input('Choose a month (from all, january, ...): ').lower()
 
     # get user input for day of week (all, monday, tuesday, ... sunday)
     valid_weekdays = ['all', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']
     day = ''
+
     while day not in valid_weekdays:
         day = input('Choose a day of the week (from all, monday, ... sunday): ').lower()
     
     print('-'*40)
+    
     return city, month, day
+
 
 
 def load_data(city, month, day):
     """
-    Loads data for the specified city and filters by month and day if applicable.
+    Load data for the specified city and filters by month and day if applicable.
 
-    Args:
+    Arguments:
         (str) city - name of the city to analyze
         (str) month - name of the month to filter by, or "all" to apply no month filter
         (str) day - name of the day of week to filter by, or "all" to apply no day filter
+    
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
@@ -68,6 +79,7 @@ def load_data(city, month, day):
     
     df = pd.read_csv(CITY_DATA[city])
     new_df = []
+    
     for i, row in df.iterrows():
         start_date = row['Start Time']
         start_date_obj = datetime.datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S')
@@ -80,16 +92,21 @@ def load_data(city, month, day):
     new_df = pd.DataFrame(new_df)
     print("Here is some data: ")
     idx = 0
+    
     while True:
         print(new_df[idx:idx+5].head())
         idx += 5
         if input("Would you like to see more data? (yes/no) ").lower() == "no":
             break
+    
     return new_df
 
 
+
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
+    """
+    Display statistics on the most frequent times of travel.
+    """
 
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -100,6 +117,7 @@ def time_stats(df):
     month_counts = {}
     day_counts = {}
     hour_counts = {}
+
     for i, row in df.iterrows():
         start_date = row['Start Time']
         start_date_obj = datetime.datetime.strptime(start_date, '%Y-%m-%d %H:%M:%S')
@@ -121,15 +139,18 @@ def time_stats(df):
         else:
             hour_counts[hour] = 1
             
-    # display the most common month
+    # Display the most common month
     print('The most common month is:', months[max_dict(month_counts)])
-    # display the most common day of week
+    
+    # Display the most common day of week
     print('The most common day of the week is:', weekdays[max_dict(day_counts)])
-    # display the most common start hour
+    
+    # Display the most common start hour
     print('The most common start hour is:', max_dict(hour_counts))
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+
 
 
 def station_stats(df):
@@ -173,6 +194,7 @@ def station_stats(df):
     print('-'*40)
 
 
+
 def trip_duration_stats(df):
     """Displays statistics on the total and average trip duration."""
 
@@ -192,6 +214,7 @@ def trip_duration_stats(df):
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
+
 
 
 def user_stats(df):
@@ -265,6 +288,7 @@ def user_stats(df):
     print('-'*40)
 
 
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -278,6 +302,7 @@ def main():
         restart = input('\nWould you like to restart? Enter yes or no.\n')
         if restart.lower() != 'yes':
             break
+
 
 
 if __name__ == "__main__":
